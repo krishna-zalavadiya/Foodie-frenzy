@@ -33,6 +33,11 @@ useEffect(() => {
 }, []);
 };
 
+           <tr>
+                    {['Order ID', 'Customer', 'Address', 'Items', 'Total Items', 'Price', 'Payment', 'Status'].map(h => (
+                      <th key={h} className={tableClasses.headerCell + (h === 'Total Items' ? ' text-center' : '')}>{h}</th>
+                    ))}
+                  </tr>
 
 
 // Sum up the quantities of all items in the order

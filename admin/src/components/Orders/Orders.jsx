@@ -33,4 +33,18 @@ useEffect(() => {
 }, []);
 };
 
+
+
+// Sum up the quantities of all items in the order
+const totalItems = order.items.reduce((s, i) => s + i.quantity, 0);
+// Use the precomputed total if available; otherwise calculate price × quantity for each item
+const totalPrice = order.total ?? order.items.reduce((s, i) => s + i.item.price * i.quantity, 0);
+// Look up the display details for the payment method (lowercased), defaulting if not found
+const payMethod = paymentMethodDetails[order.paymentMethod?.toLowerCase()] || paymentMethodDetails.default;
+// Pick the style for the payment status, falling back to “processing” if unknown
+const payStatusStyle = statusStyles[order.paymentStatus] || statusStyles.processing;
+// Pick the style for the order’s overall status, falling back to “processing” if unknown
+const stat = statusStyles[order.status] || statusStyles.processing;
+
+
 export default Orders;

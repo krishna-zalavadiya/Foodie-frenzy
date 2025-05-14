@@ -39,6 +39,27 @@ const CheckoutPage = () => {
 
 
 // DUMMY DATA FOR MYORDERPAGE
+
+                        const formattedOrders = response.data.map(order => ({
+          ...order,
+          items: order.items?.map(entry => ({
+            _id: entry._id,
+            item: {
+              ...entry.item,
+              imageUrl: entry.item.imageUrl,   // <-- CORRECT: pull from entry.item
+            },
+            quantity: entry.quantity
+          })) || [],
+          createdAt: new Date(order.createdAt).toLocaleDateString('en-IN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          }),
+          paymentStatus: order.paymentStatus?.toLowerCase() || 'pending'
+        }));
+                        
 const statusStyles = {
     processing: {
         color: 'text-amber-400',
